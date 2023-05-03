@@ -27,35 +27,43 @@
 		let maxLeadsPerDay = prompt("Введите максимальное количество сделок в день", 1);
 
 		let disabledDays = [];
-
-		monthWorkload.forEach(element => {
-			if (element['count'] >= maxLeadsPerDay) {
-				disabledDays.push(new Date(element['date']));
-			}
-		});
-		disabledDays.sort(function (a, b) {
-			return a - b;
-		});
-
 		let selectableDateRange = [];
 
-		selectableDateRange.push({
-			from: new Date(),
-			to: new Date(disabledDays[0].setDate(disabledDays[0].getDate() - 1))
-		});
+		if (monthWorkload.length != 0) {
+			
+			monthWorkload.forEach(element => {
+				if (element['count'] >= maxLeadsPerDay) {
+					disabledDays.push(new Date(element['date']));
+				}
+			});
+			disabledDays.sort(function (a, b) {
+				return a - b;
+			});
 
-		for (let i = 0; i < disabledDays.length - 1; i++) {
+
 			selectableDateRange.push({
-				from: new Date(disabledDays[i].setDate(disabledDays[i].getDate() + 2)),
-				to: new Date(disabledDays[i + 1].setDate(disabledDays[i + 1].getDate() - 1))
+				from: new Date(),
+				to: new Date(disabledDays[0].setDate(disabledDays[0].getDate() - 1))
+			});
+
+			for (let i = 0; i < disabledDays.length - 1; i++) {
+				selectableDateRange.push({
+					from: new Date(disabledDays[i].setDate(disabledDays[i].getDate() + 2)),
+					to: new Date(disabledDays[i + 1].setDate(disabledDays[i + 1].getDate() - 1))
+				});
+			}
+
+			selectableDateRange.push({
+				from: new Date(),
+				to: new Date(new Date().setDate(new Date().getDate() + 30))
 			});
 		}
-
-		selectableDateRange.push({
-			from: new Date(disabledDays[disabledDays.length - 1].setDate(disabledDays[disabledDays.length - 1].getDate() + 2)),
-			to: new Date(new Date().setDate(new Date().getDate() + 30))
-		});
-
+		else{
+			selectableDateRange.push({
+				from: new Date(),
+				to: new Date(new Date().setDate(new Date().getDate() + 30))
+			});
+		}
 
 		$(window).load(function () {
 			$('input').glDatePicker();
