@@ -32,7 +32,7 @@ function getMonthWorkload()
     $status = $statuses;
     $id = [];
     $ifmodif = "";
-    $count = 5; // int | Количество запрашиваемых элементов
+    $count = 10; // int | Количество запрашиваемых элементов
     $offset = 0; // int | смещение, относительно которого нужно вернуть элементы
     $DayLeadArray = array();
 
@@ -47,6 +47,7 @@ function getMonthWorkload()
                 }
             }
             $offset = $offset + $count; // смещаем элемент, относительно которого нужно вернуть элементы
+            sleep(1);
             $result = $api->lead->getAll($crm_user_id, $status, $id, $ifmodif, $count, $offset); //отправляем еще один запрос
         }
     } catch (Exception $e) {
