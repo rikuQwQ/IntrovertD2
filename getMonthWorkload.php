@@ -54,5 +54,4 @@ function getMonthWorkload()
     }
     return countRepeatsOfDate($DayLeadArray);
 }
-getMonthWorkload();
 ?>
