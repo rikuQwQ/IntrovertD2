@@ -25,12 +25,9 @@
 	<script type="text/javascript">
 
 		let maxLeadsPerDay = prompt("Введите максимальное количество сделок в день", 1);
-
 		let disabledDays = [];
 		let selectableDateRange = [];
-
 		if (monthWorkload.length != 0) {
-			
 			monthWorkload.forEach(element => {
 				if (element['count'] >= maxLeadsPerDay) {
 					disabledDays.push(new Date(element['date']));
@@ -39,8 +36,7 @@
 			disabledDays.sort(function (a, b) {
 				return a - b;
 			});
-
-
+			
 			selectableDateRange.push({
 				from: new Date(),
 				to: new Date(disabledDays[0].setDate(disabledDays[0].getDate() - 1))
@@ -68,7 +64,6 @@
 		$(window).load(function () {
 			$('input').glDatePicker();
 		});
-
 		$('#mydate').glDatePicker({
 			showAlways: true,
 			allowMonthSelect: false,
